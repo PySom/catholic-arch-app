@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suave="clr-namespace:SuaveControls.DynamicWrapLayout;assembly=SuaveControls.DynamicWrapLayout"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="LagosArch.Views.ParishViewPage">
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView>
+                <StackLayout Spacing="0">
+                    <Grid HeightRequest="200" VerticalOptions="Fill" Margin="0">
+                        <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Source="defaultMap.png" />
+                        <StackLayout Padding="10" HorizontalOptions="End" VerticalOptions="End">
+                            <Button  BackgroundColor="#012101" Text="Directions" TextColor="White" Command="{Binding ViewMapCommand}"/>
+
+                        </StackLayout>
+                    </Grid>
+                    <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" Source="{Binding Parish.Image}" />
+                    <StackLayout Padding="20">
+                        <Label Text="{Binding Parish.Name}"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        TextColor="Black" />
+                        <Label Text="{Binding Path=Parish.Address,
+                                          StringFormat='Address: {0}'}"
+                        VerticalOptions="StartAndExpand" 
+                        FontSize="17" />
+                        <Label Text="{Binding Path=Parish.Email,
+                                          StringFormat='Email: {0}'}"
+                        VerticalOptions="StartAndExpand" 
+                        FontSize="17" />
+                        <Label Text="{Binding Path=Parish.Phone,
+                                          StringFormat='Tel: {0}'}"
+                        VerticalOptions="StartAndExpand" 
+                        FontSize="17" />
+                        <Label Text="{Binding Path=Parish.ParishPriest,
+                                          StringFormat='Parish Priest: {0}'}"
+                        VerticalOptions="StartAndExpand" 
+                        FontSize="17" />
+                        <Label Text="{Binding Path=Parish.TotalPriests,
+                                          StringFormat='Total Priests: {0}'}"
+                                        VerticalOptions="StartAndExpand" 
+                                        FontSize="17" />
+                        <Label Text="{Binding Confession}"
+                                        VerticalOptions="StartAndExpand" 
+                                        FontSize="17"
+                                        FontAttributes="Bold"/>
+                        
+                        <ScrollView>
+                            <suave:DynamicWrapLayout ItemsSource="{Binding Parish.Confessions}" VerticalOptions="Fill" HorizontalOptions="Fill">
+                                <suave:DynamicWrapLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="{Binding Path=DayOfWeek,
+                                                StringFormat='Day: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                            <Label Text="{Binding Path=StartTimeString,
+                                                StringFormat='Starts At: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                            <Label Text="{Binding Path=EndTimeString,
+                                                StringFormat='Ends By: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </suave:DynamicWrapLayout.ItemTemplate>
+                            </suave:DynamicWrapLayout>
+                        </ScrollView>
+                        <Label Text="{Binding Mass}"
+                                        VerticalOptions="StartAndExpand" 
+                                        FontSize="17"
+                                        FontAttributes="Bold"/>
+
+                        <ScrollView>
+                            <suave:DynamicWrapLayout ItemsSource="{Binding Parish.Masses}" VerticalOptions="Fill" HorizontalOptions="Fill">
+                                <suave:DynamicWrapLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="{Binding Path=DayOfWeek,
+                                                StringFormat='Day: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                            <Label Text="{Binding Path=StartTimeString,
+                                                StringFormat='Starts At: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                            <Label Text="{Binding Path=EndTimeString,
+                                                StringFormat='Ends By: {0}'}"
+                                                VerticalOptions="StartAndExpand" 
+                                                FontSize="17" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </suave:DynamicWrapLayout.ItemTemplate>
+                            </suave:DynamicWrapLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+        
+
+    </ContentPage.Content>
+</ContentPage>

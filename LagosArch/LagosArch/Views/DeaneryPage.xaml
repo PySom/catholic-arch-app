@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suave="clr-namespace:SuaveControls.DynamicWrapLayout;assembly=SuaveControls.DynamicWrapLayout"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="LagosArch.Views.DeaneryPage">
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#a5a5a5" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+             Command="{Binding LoadItemsCommand}">
+        <CollectionView x:Name="DenearyList"
+                        EmptyView="No items to display"
+                        ItemsSource="{Binding DeaneryGroups}"
+                        VerticalOptions="Start"
+                        SelectionMode="Single"
+                        IsGrouped="True"
+                        SelectionChanged="OnItemSelected">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <StackLayout BackgroundColor="#f1f1f1">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnTapGestureRecognizerTapped"
+                                NumberOfTapsRequired="1" />     
+                        </StackLayout.GestureRecognizers>
+                        <Label 
+                            Padding="20"
+                            Text="{Binding Name}"
+                            VerticalOptions="Start"
+                            d:Text="{Binding .}"
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16"/>
+                    </StackLayout>
+                    
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <!--Built in Cells-->
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="StartAndExpand" Padding="10" VerticalOptions="StartAndExpand" BackgroundColor="#f2f2f2">
+                        <Frame CornerRadius="10"  Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" BorderColor="#CCCCCC">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Image}" Aspect="AspectFill" HeightRequest="100" WidthRequest="100" />
+                                <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <Label Text="{Binding Name}" 
+                                                    d:Text="{Binding .}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="16"
+                                                    Grid.Row="0"/>
+                                    <Label Text="{Binding Address}" 
+                                                    d:Text="{Binding .}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="13"
+                                                    Grid.Row="0"/>
+                                    <Label Text="{Binding Email}" 
+                                                    d:Text="{Binding .}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="13"
+                                                    Grid.Row="0"/>
+                                    <Label Text="{Binding Phone}" 
+                                                    d:Text="{Binding .}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="13"
+                                                    Grid.Row="0"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+
+                    </StackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

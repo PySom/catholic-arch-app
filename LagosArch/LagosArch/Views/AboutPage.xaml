@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LagosArch.Views.AboutPage"
+             xmlns:vm="clr-namespace:LagosArch.ViewModels"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             Title="Contact">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Golden">#733529</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <yummy:PancakeView CornerRadius="0,0,20,20" HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
+            <Grid  HeightRequest="150" VerticalOptions="Fill" Margin="0">
+                <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Source="arch_church.jpg" />
+                <BoxView HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#733529" Opacity="0.7"/>
+            </Grid>
+        </yummy:PancakeView>
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="0, 0, 0, 20">
+                <StackLayout Padding="16,40,16,10" Spacing="10">
+                    <Label Text="Address" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                    <Label Text="{Binding Address}" FontSize="18" TextType="Html"/>
+                    <Button Text="send us an email"
+                        Command="{Binding OpenEmailCommand}"
+                        BackgroundColor="{StaticResource Golden}"
+                        BorderColor="Black"
+                        TextColor="#FFFFFF" />
+
+                </StackLayout>
+                <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Source="map.PNG" Aspect="AspectFill"/>
+
+            </StackLayout>
+            
+        </ScrollView>
+    </Grid>
+    
+</ContentPage>

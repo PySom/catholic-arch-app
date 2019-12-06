@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             Title="Reflections"
+             x:Class="LagosArch.Views.ReflectionViewPage">
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#f1f1f1" />
+                                <Setter Property="Opacity"
+                                        Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+             Command="{Binding LoadItemsCommand}">
+        <CollectionView x:Name="RelectionListView"
+                        Header="{Binding .}"
+                        EmptyView="No items to display"
+                        ItemsSource="{Binding Reflections}"
+                        VerticalOptions="FillAndExpand"
+                        SelectionMode="Single"
+                        SelectionChanged="OnItemSelected">
+            <!--Built in Cells-->
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <yummy:PancakeView CornerRadius="0,0,20,20" HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
+                        <Grid  HeightRequest="150" VerticalOptions="Fill" Margin="0">
+                            <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Source="arch_church.jpg" />
+                            <BoxView HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#733529" Opacity="0.7"/>
+                        </Grid>
+                    </yummy:PancakeView>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="20">
+                        <yummy:PancakeView CornerRadius="20,20,20,20" IsClippedToBounds="True" BorderColor="Azure" BackgroundColor="#F2F2F2" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Padding="0">
+                            <StackLayout  HorizontalOptions="Fill" VerticalOptions="Fill" Padding="0" Margin="0">
+                                <Image VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFit" Source="{Binding Image}" />
+                                <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="Black" FontSize="24" Padding="10,5,10,5" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Content}"  FontSize="18" Padding="10,2,10,5" HorizontalOptions="StartAndExpand"/>
+                                <BoxView HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#cccccc" Opacity="0.7"/>
+                            </StackLayout>
+                        </yummy:PancakeView>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!--Custom View Cells-->
+            <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   d:Text="{Binding .}"
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   d:Text="Detail"
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

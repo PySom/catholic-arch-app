@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:LagosArch.ViewModels"
+             xmlns:custom="clr-namespace:LagosArch.Customs"
+             mc:Ignorable="d"
+             Title="Donation"
+             x:Class="LagosArch.Views.DonationPage">
+    
+    <ContentPage.BindingContext>
+        <vm:DonationViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Golden">#733529</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+             Command="{Binding LoadItemsCommand}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <yummy:PancakeView CornerRadius="0,0,20,20" HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
+                <Grid  HeightRequest="150" VerticalOptions="Fill" Margin="0">
+                    <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Source="arch_church.jpg" />
+                    <BoxView HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#733529" Opacity="0.7"/>
+                </Grid>
+            </yummy:PancakeView>
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="0, 0, 0, 20">
+                    <StackLayout Padding="16,40,16,40">
+                        <Label Text="You can pay into any of our accounts" Margin="0,10,0,20" FontSize="18" TextColor="{StaticResource Golden}"/>
+                        <Label Text="BANK NAME: ZENITH BANK" FontSize="15" Padding="0,0,0,5"/>
+                        <Label Text="ACCOUNT NAME: LAGOS ARCHDIOCESE" FontSize="15" Padding="0,0,0,5"/>
+                        <Label Text="ACCOUNT NUMBER: 0945642134" FontSize="15" Padding="0,0,0,0"/>
+                        <Label Text="Or donate online using our platform" Margin="0,20,0,20" FontSize="18" TextColor="{StaticResource Golden}"/>
+
+                        <Picker x:Name="picker"
+                                SelectedIndexChanged="PickerSelectedIndexChanged"
+                                Title=" -- Choose a donation -- "
+                                HorizontalOptions="CenterAndExpand"
+                                TitleColor="{StaticResource Golden}"
+                                ItemsSource="{Binding DonationTitles}"
+                                FontSize="18"
+                                />
+                        <StackLayout Margin="0,0,0,15">
+                            <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Source="{Binding Image}" />
+                            <Label Text="{Binding Content}"/>
+                        </StackLayout>
+                        <Label Text="Name - First and Last (required)" FontSize="16"/>
+                        <custom:LAEntry Placeholder="Onyema Wuraola" Text="{Binding Name}" Keyboard="Text" Margin="0,0,0,15"/>
+                        <Label Text="Email (required)" FontSize="16" />
+                        <custom:LAEntry Placeholder="isa@odia.ng" Text="{Binding Email}" Keyboard="Email" Margin="0,0,0,15"/>
+                        <Label Text="Phone number (required)" FontSize="16" />
+                        <custom:LAEntry Placeholder="+234" Text="{Binding Phone}"  Keyboard="Telephone" Margin="0,0,0,15"/>
+                        <Label Text="Amount" FontSize="16" />
+                        <custom:LAEntry Text="{Binding Amount}"  Keyboard="Numeric" Margin="0,0,0,15"/>
+
+                        <Button Text="Donate" Clicked="PayWithRave" IsVisible="{Binding IsValid}" HorizontalOptions="End"/>
+                    </StackLayout>
+
+                </StackLayout>
+
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+    
+</ContentPage>
